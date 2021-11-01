@@ -1,0 +1,82 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>InventoryID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>categoryID</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dataItem of InventoryList">
+            <td>{{dataItem.id}}</td>
+            <td>{{dataItem.name}}</td>
+            <td>{{dataItem.price}}</td>
+            <td>{{dataItem.stock}}</td>
+            <td>{{dataItem.categoryId}}</td>
+            <td>{{dataItem.description}}</td>
+            <td>
+                <button type="button" class="btn btn-light mr-1">
+                    Add to Cart
+                </button>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Subject</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of categories">
+            <td>{{data.id}}</td>
+            <td>{{data.subject}}</td>
+
+            <td>
+                <button type="button" class="btn btn-light mr-1">
+                    Add to Cart
+                </button>
+
+            </td>
+        </tr>
+    </tbody>
+
+
+</table>
+
+
+
+
+<!-- component -->
+<div class="bg-grey-lighter min-h-screen flex flex-col">
+
+    <form class="signup-form" [formGroup]="form" (ngSubmit)="onSubmit()" >
+
+        <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+            <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+                <h1 class="mb-8 text-3xl text-center">ADD SOMETHING GODD</h1>
+
+                <input type="text" class="block border border-grey-light w-full p-3 rounded mb-4" 
+                     placeholder="Subject" formControlName="subject" />
+
+                <button type="submit">Create Account</button>
+
+            </div>
+
+            <div class="text-grey-dark mt-6">
+                Already have an account?
+                <a class="no-underline border-b border-blue text-blue" href="../login/">
+                    Log in
+                </a>.
+            </div>
+        </div>
+    </form>
+</div>

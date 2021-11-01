@@ -1,0 +1,90 @@
+#ANGULAR LINT NOT FULLY IMPLEMENTED YET
+trigger:
+- main
+
+pr:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables: #Path to folders
+  angular: '$(Build.SourcesDirectory)/project2-app'
+
+stages:
+- stage: Installs
+  #Runs NPM Installs
+  jobs:
+    - job: npmInstall
+      displayName: NPM Install
+      steps:
+      #Install Node
+      - task: NodeTool@0
+        displayName: Install Node.js
+        inputs:
+            versionSpec: 14.x
+      #Install Tailwind
+      - task: CmdLine@2
+        displayName: Install Tailwind css
+        inputs:
+          script: 'npm install tailwindcss'
+          workingDirectory: $(angular)
+
+- stage: Angular_BT
+  jobs:
+  # Angular Build and Test Here
+    - job: NGBuild 
+      displayName: Angular Build/Test
+      steps:
+      #Restore
+      - task: Npm@1
+        displayName: Restore NPM
+        inputs:
+          command: 'ci'
+          workingDir: '$(angular)'
+      #Build
+      - task: CmdLine@2
+        displayName: Angular Build
+        inputs:
+          script: 'npx ng build'
+          workingDirectory: $(angular)
+      #Check
+      # - task: CmdLine@2
+      #   displayName: Check Angular Violations
+      #   inputs:
+      #     script: 'npx ng lint'
+      #     workingDirectory: $(angular)
+    #Test
+      - task: CmdLine@2
+        displayName: Angular Tests
+        inputs:
+          script: 'npx ng test --browsers=ChromeHeadless --code-coverage --watch=false'
+          workingDirectory: $(angular)
+    #Prepare 
+      - task: SonarCloudPrepare@1
+        inputs:
+          SonarCloud: 'P2 UI Scanner'
+          organization: '210726-wvu-net-ext'
+          scannerMode: 'CLI'
+          configMode: 'manual'
+          cliProjectKey: '210726-wvu-net-ext_Group3-P2_UI'
+          cliSources: '$(angular)'
+          extraProperties: |
+            sonar.javascript.lcov.reportPaths=$(appDir)/coverage/$(appDir)/lcov.info
+            sonar.coverage.exclusions=**/*.spec.ts
+    #Analyze
+      - task: SonarCloudAnalyze@1
+        displayName: 'Run SonarCloud analysis'
+    #Publish Sonar
+      - task: SonarCloudPublish@1
+        displayName: 'Publish results on build summary'
+#Publish Artifact
+- stage: Publish
+  jobs:
+    - job:
+      steps:
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: 'StoreUI'
+          publishLocation: 'Container'

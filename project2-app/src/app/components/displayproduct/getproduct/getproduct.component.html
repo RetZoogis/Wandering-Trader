@@ -1,0 +1,30 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>OrderId</th>
+            <th>InventoryId</th>
+         
+        </tr>
+    </thead>
+        <tbody>
+
+            <tr *ngFor="let dataItem of ProductList">
+                <td>{{dataItem.id}}</td>
+                <td>{{dataItem.name}}</td>
+                <td>{{dataItem.price}}</td>
+                <td>{{dataItem.quantity}}</td>
+                <td>{{dataItem.orderId}}</td>
+                <td>{{dataItem.inventoryId}}</td>
+                
+                <td>
+
+                </td>
+            </tr>
+        </tbody>
+        
+    
+</table>

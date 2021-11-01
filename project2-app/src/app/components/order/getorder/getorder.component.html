@@ -1,0 +1,29 @@
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>UserId</th>
+            <th>Total</th>
+            <th>IsCompleted</th>
+         
+        </tr>
+    </thead>
+        <tbody>
+
+            <tr *ngFor="let dataItem of OrderList">
+                <td>{{dataItem.id}}</td>
+                <td>{{dataItem.userId}}</td>
+                <td>{{dataItem.total}}</td>
+                <td>{{dataItem.isCompleted}}</td>
+                
+                <td>
+
+                </td>
+            </tr>
+        </tbody>
+</table>
+
+
+<app-getproduct></app-getproduct>

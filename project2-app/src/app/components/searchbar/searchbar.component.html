@@ -1,0 +1,78 @@
+<!-- component -->
+<div class="text-white body-font fixed top-0 bg-gradient-to-b from-black w-full z-50">
+  <div class=" px-16 flex flex-wrap p-5 flex-col md:flex-row items-center">
+
+    <ul class="hidden lg:flex flex-row space-x-3 w-1/2 ml-12 text-sm">
+
+      <li class="font-semibold"> <a href="#">Home</a></li>
+      
+      <li>
+        <button routerLink="sidecheckout"> Checkout</button>
+      </li>
+      <li>
+        <button routerLink="order"> Order</button>
+      </li>
+      <li *ngIf="userService.user$ | async as user; else noUser">
+      <button (click)="signOut()"> Sign Out</button>
+      </li>
+      <ng-template #noUser>
+        <li>
+          <button (click)="openSignUpModal()">Sign Up</button>
+        </li>
+
+        <li>
+          <button (click)="openSignInModal()"> Sign In </button>
+        </li>
+      </ng-template>
+      <li *ngIf="userService.user$ | async as user">
+        <h2>       Welcome {{user.fullName}}</h2>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="w-full h-screen relative">
+  <div class="absolute w-full h-full z-10 ">
+    <div class="px-16  h-full flex items-center justify-start">
+      <div class="hidden lg:flex flex-col w-2/5 space-y-4 py-12 ">
+
+        <img alt="">
+
+        <h3 class="text-2xl font-semibold text-white ">Wandering Trader </h3>
+
+
+        <p class="text-lg text-white">Best in the market. The black market too!</p>
+        <div class="flex space-x-4 flex-row w-full">
+          <button
+            class=" px-3 mt-5 items-center shadow-md rounded-lg bg-white  space-x-2 py-2 justify-center flex w-32">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-gray-800 font-semibold">Video</span>
+          </button>
+
+          <button
+            class=" px-3 mt-5 items-center shadow-md rounded-lg bg-gray-500 bg-opacity-50  space-x-2 py-2 justify-center flex w-auto">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="text-white font-semibold">Services</span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="absolute w-full h-64 bottom-0 bg-gradient-to-t from-black">
+
+  </div>
+  <video class="w-full h-64 lg:h-screen object-cover -mt-8    " autoplay muted loop>
+    <source class="h-screen object-contain"
+      src="https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_1280_10MG.mp4" type="video/mp4">
+  </video>
+
+</div>
